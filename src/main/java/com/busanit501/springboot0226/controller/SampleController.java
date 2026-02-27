@@ -29,6 +29,14 @@ public class SampleController {
         }
     }
 
+    @GetMapping("/ex/ex3")
+    public void ex3(Model model) {
+        log.info("/ex/ex3 확인.....");
+        List<String> strList = Arrays.asList("111", "BBB", "CCC");
+        model.addAttribute("strList", strList);
+    }
+
+
     @GetMapping("/ex/ex2")
     public void ex2(Model model) {
         log.info("/ex/ex2 확인.....");
