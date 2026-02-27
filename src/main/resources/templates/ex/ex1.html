@@ -39,5 +39,14 @@
     : [[${str}]]
     </li>
 </ul>
+
+<h3>조건문,
+    th:if / th:unless / th:switch</h3>
+<ul>
+    <li th:each="str,status : ${strList}" >
+        <span th:if="${status.odd}">ODD 속성 참 인경우 : 홀수 : [[${str}]]</span>
+        <span th:unless="${status.odd}">ODD 속성 참이 아닌 경우 : 짝수 : [[${str}]]</span>
+    </li>
+</ul>
 </body>
 </html>
