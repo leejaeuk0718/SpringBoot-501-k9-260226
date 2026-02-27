@@ -56,5 +56,15 @@
     </li>
 </ul>
 
+<h3>th:switch 이용해보기.</h3>
+<ul>
+    <li th:each="str,status : ${strList}" >
+        <th:block th:switch="${status.index % 3}">
+            <span th:case="0">나머지 : 0, </span>
+            <span th:case="1">나머지 : 1, </span>
+            <span th:case="2">나머지 : 2, </span>
+        </th:block>
+    </li>
+</ul>
 </body>
 </html>
