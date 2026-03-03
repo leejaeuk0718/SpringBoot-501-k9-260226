@@ -5,6 +5,7 @@ buildscript {
         queryDslVersion = "5.0.0"
     }
 }
+//순서1 queryDsl
 
 plugins {
     id 'java'
@@ -67,6 +68,7 @@ dependencies {
             "jakarta.annotation:jakarta.annotation-api",
             "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
     )
+    //    순서3 queryDsl
 }
 
 tasks.named('test') {
@@ -85,3 +87,4 @@ sourceSets {
     }
 }
 compileJava.dependsOn('clean')
+//순서4 queryDsl
