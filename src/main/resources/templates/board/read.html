@@ -18,7 +18,7 @@
                         <span class="input-group-text">Bno:</span>
                         <input class="form-control" type="text" name="bno"
                                th:value="${dto.bno}"
-                                readonly>
+                               readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Title:</span>
@@ -52,9 +52,11 @@
                                name="modDate" readonly>
                     </div>
 
-                    <div>
-                        <button class="btn btn-primary">목록가기</button>
-                        <button class="btn btn-secondary" >수정하기</button>
+                    <div th:with="link=${pageRequestDTO.getLink()}">
+                        <a th:href="|@{/board/list}?${link}|">
+                            <button class="btn btn-primary">목록가기</button>
+                        </a>
+                        <button class="btn btn-secondary">수정하기</button>
                     </div>
                 </div>
             </div>
