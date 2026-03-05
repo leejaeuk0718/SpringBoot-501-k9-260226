@@ -62,5 +62,28 @@ public class BoardController {
         model.addAttribute("dto",boardDTO);
     }
 
+    @PostMapping("/modify")
+    public String modify(@Valid BoardDTO boardDTO, BindingResult bindingResult,
+                               PageRequestDTO pageRequestDTO,
+                               RedirectAttributes redirectAttributes) {
+        log.info("BoardController 에서, modify 작업중");
+
+        // 서버에서 유효성 체크를 했을 경우
+        if(bindingResult.hasErrors()) {
+            log.info("BoardController 에서, modify , 유효성 오류 발생. ");
+            String link = pageRequestDTO.getLink();
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("bno",boardDTO.getBno());
+            return "redirect:/board/modify?"+link;
+        }
+        // 유효성 체크를 통과한 경우.
+        log.info("boardDTO 확인 : " + boardDTO);
+        boardService.modify(boardDTO);
+        redirectAttributes.addFlashAttribute("result", "modified");
+        redirectAttributes.addAttribute("bno", boardDTO.getBno());
+        return "redirect:/board/read";
+
+    }
+
 
 }
