@@ -53,7 +53,7 @@
                                    name="modDate" disabled>
                         </div>
 
-                        <button type="button" class="btn btn-primary listBtn">목록가기</button>
+<!--                        <button type="button" class="btn btn-primary listBtn">목록가기</button>-->
                         <button type="button" class="btn btn-secondary modBtn">수정하기</button>
                         <button type="button" class="btn btn-danger removeBtn">삭제하기</button>
                     </form>
@@ -87,6 +87,17 @@
         formObj.method = "post"
         formObj.submit()
     }, false
+    )
+
+    // 삭제하기.
+    document.querySelector(".removeBtn").addEventListener("click", function (e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            formObj.action = `/board/remove`
+            formObj.method = "post"
+            formObj.submit()
+        }, false
     )
 
 </script>
