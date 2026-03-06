@@ -43,8 +43,7 @@ public class ReplyController {
             description = "댓글 등록을 진행함, post 형식으로")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String,Long>> register(
-//            @Valid @RequestBody ReplyDTO replyDTO,
-            @RequestBody ReplyDTO replyDTO,
+            @Valid @RequestBody ReplyDTO replyDTO,
             BindingResult bindingResult
     ) throws BindException {
         log.info(" ReplyController replyDTO: ", replyDTO);
