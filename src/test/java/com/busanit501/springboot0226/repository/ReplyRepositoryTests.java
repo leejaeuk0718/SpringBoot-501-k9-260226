@@ -21,7 +21,7 @@ public class ReplyRepositoryTests {
     @Test
     public void testInsert() {
         // 각자 데이터베이스에, 게시글 하나에 더미 댓글 작성.
-        Long bno = 124L;
+        Long bno = 125L;
         //  부모 게시글이 있고
        Board board = Board.builder()
                         .bno(bno)
@@ -40,7 +40,7 @@ public class ReplyRepositoryTests {
     @Test
     public void testBoardReplies() {
 
-        Long bno = 124L;
+        Long bno = 125L;
 
         Pageable pageable = PageRequest.of(0,10, Sort.by("rno").descending());
 

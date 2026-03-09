@@ -2,6 +2,8 @@ package com.busanit501.springboot0226.repository.search;
 
 import com.busanit501.springboot0226.domain.Board;
 import com.busanit501.springboot0226.domain.QBoard;
+import com.busanit501.springboot0226.domain.QReply;
+import com.busanit501.springboot0226.dto.BoardListReplyCountDTO;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
@@ -86,5 +88,22 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         Page<Board> result = new PageImpl<Board>(list, pageable, total);
 
         return result;
+    }
+
+    @Override
+    public Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable) {
+
+        QBoard board = QBoard.board;
+        QReply reply = QReply.reply;
+
+        JPQLQuery<Board> query = from(board); // select .. from board ; 같은 효과. 자바로 데이터베이스 작업중.
+        // Board 테이블에, reply 테이블 2개를 합치는데, 조건이,
+        //  Board 테이블의 bno 와, reply의 board.bno 같은 경우, 합친다.
+        // 하나의 테이블에, Board 테이블 내용도 있고, Reply 테이블 내용도 같이 있어요.
+        query.leftJoin(reply).on(reply.board.eq(board));
+        query.groupBy(board);
+
+
+        return null;
     }
 }
