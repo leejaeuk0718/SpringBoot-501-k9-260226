@@ -39,8 +39,16 @@ function printReplies(page, size, goLast) {
     )
 }
 
+
 // 위에서, 화면을 그려주는 함수 호출해서, 실제 그림 그리기.
 // 임의로 그리기.
 // 마지막 매개변수 부분이, 댓글의 마지막 페이지로 이동하는 요소
 printReplies(1,10,true)
+
+
+// 댓글 등록 함수
+async function addReply(replyObj){
+    const response = await axios.get(`/replies/`, replyObj)
+    return response.data
+}
 
