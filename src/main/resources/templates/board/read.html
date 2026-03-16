@@ -171,7 +171,11 @@
     // 함수 정의
     function printReplies(page,size,goLast) {
       getList({bno, page, size,goLast})
-          .then(data => {console.log(data)})
+          .then(data => {
+              // console.log(data)
+              printList(data.dtoList) // 댓글 목록 출력하기.
+              printPages(data)// 댓글 페이징 출력하기.
+          })
           .catch(e => {console.error(e)})
     }
     // 함수 호출(사용하기), 댓글 목록을 받아서, 일단 콘솔로 확인.
@@ -267,6 +271,31 @@
         registerModal.hide()
     }, false)
 
+
+    // 실제 댓글 입력 모달 창 화면에서, 댓글등록 버튼 클릭시, 이벤트 리스너 추가하기.
+    registerBtn.addEventListener("click", function (e) {
+        // 클릭시, 댓글의 내용을 , 자바스크립트 객체 데이터 담기 -> axios 이용해서, json 문자열로 스프링부트 서버에 전달. (역직렬화)
+        // 스프링 부트 서버에서는 ->json 문자열을 받아서, -> DTO 클래스 타입으로 변환 (직렬화)
+        const replyObj = {
+            bno:bno,
+            replyText : replyText.value,
+            replyer : replyer.value
+        }
+        console.log("replyObj : ", replyObj)
+        // reply.js 에서 만든, addReply 함수 이용하기.
+        addReply(replyObj).then(result => {
+            // 오타수정
+            alert("등록한 댓글 번호 : " + result.rno)
+            registerModal.hide()
+            replyText.value = ''
+            replyer.value = ''
+            // 댓글 작성 후, 댓글의 마지막 페이지 이동.
+            printReplies(1,10,true)
+        })
+            .catch(e => {
+                alert("예외 발생함.")
+            })
+    },false)
 </script>
 </body>
 </html>

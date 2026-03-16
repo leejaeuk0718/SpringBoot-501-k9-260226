@@ -48,7 +48,8 @@ printReplies(1,10,true)
 
 // 댓글 등록 함수
 async function addReply(replyObj){
-    const response = await axios.get(`/replies/`, replyObj)
+    // 오타수정
+    const response = await axios.post(`/replies/`, replyObj)
     return response.data
 }
 
