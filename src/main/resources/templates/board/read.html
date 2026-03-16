@@ -146,7 +146,92 @@
     // read 메서드에서, 모델로 라벨이름 : dto , 내용물: BoardDTO 가 들어있다.
   const bno = [[${dto.bno}]]
     // reply.js 에 있는 get1 함수를 호출.
-    get1(bno)
+    // get1(bno)
+    // console.log(get1(bno))
+
+    // Promise : 진동벨이라고 비유했고, 서버로 부터 댓글 데이터를 받아오면, 마치 동기적인 작업처럼 진행 가능.
+    // 서버로부터 정상 응답 받으면, then 절이 동작.
+    // 실패하면, catch 절이 받아서 동작.
+
+    // 함수 호출 테스트
+    // get1(bno).then(data => {
+    //     console.log(data)
+    // }).catch(e => {
+    //     console.error(e)
+    // })
+
+    // 준비물, page, size, goLast 매개변수로 받는 함수를 작성.
+    // 내용에는, reply.js 에서, 만든 getList 호출해서,
+    // 정상적으로 응답 : .then(data => {
+    // 정상적으로 응답 못받음 : .catch(e => {
+    // 함수 정의
+    function printReplies(page,size,goLast) {
+      getList({bno, page, size,goLast})
+          .then(data => {console.log(data)})
+          .catch(e => {console.error(e)})
+    }
+    // 함수 호출(사용하기), 댓글 목록을 받아서, 일단 콘솔로 확인.
+    printReplies(1,10)
+
+    // 작업2
+    // 화면에, innerHTML 이용해서, 동적으로 HTML  요소를 그리기.
+    const replyList = document.querySelector('.replyList') // 댓글목록이 출력이 되는 DOM 요소
+    const replyPaging = document.querySelector('.replyPaging') // 댓글의 페이지번호(페이지네이션)이 출력이 되는 DOM 요소
+
+    // <li 태그를 생성해서, 주입 해주는 함수를 만들기.
+    function printList(dtoList) {// 준비물: 댓글의 목록 데이터가 필요함 :
+      // <li 태그를 문자열처럼 작성해서, 자바스크립트로 만들고, 그 후에 태그에 추가할 예정.
+        let str = '';
+        //댓글 목록의 데이터 존재 여부 : 기본 유효성 체크.  -> 없는데 그림 그리기 시도하면 오류가 남.
+        if(dtoList && dtoList.length >0 ) {
+            for (const dto of dtoList) { // 향상된 for 문, 목록에서, 요소를 하나씩 꺼내서, 전체 순회작업하기.
+                str += `
+                <li class="list-group-item d-flex replyItem">
+                  <span class="col-2">${dto.rno}</span>
+                  <span class="col-6" data-rno="${dto.rno}">${dto.replyText}</span>
+                  <span class="col-2">${dto.replyer}</span>
+                  <span class="col-2">${dto.regDate}</span>
+                </li>
+                `
+            }
+        }
+        //위에서 만든, html 내용을, 위의 돔 요소에 주입하기.
+        replyList.innerHTML = str
+    }
+
+    // 작업3, 댓글의 페이지네이션 화면 작업,
+    // innerHTML 이용해서, 태그를 문자열로 작업 후, 해당 DOM 요소에, <li 태그를 넣는 방식
+    // 나중에 배울게 될 리액트에서, 화면 그리는 것과 비슷한 효과.
+
+    function printPages(data) { // 페이지 목록 출력 준비물.
+      let pageStr = ''; // 페이지네이션의 요소인 <li 태그들이 들어가 임시 문자열
+
+        // 이전 페이지 여부
+        if(data.prev) {
+            pageStr += `
+            <li class="page-item">
+                <a class="page-link" data-page="${data.start - 1}">
+                    PREV
+                </a>
+            </li>
+            `
+        }
+
+        // 페이지번호를 출력하는 반복문
+        for(let i = data.start; i <= data.end; i++) {
+            pageStr += `
+              <li class="page-item ${i == data.page ? "active" : ""}">
+                <a class="page-link" data-page="${i}">
+                 ${i}
+                </a>
+              </li>
+            `
+        }
+
+        // 다음 페이지 번호를 , 다음시간에
+
+    }
+
 </script>
 </body>
 </html>
