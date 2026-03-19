@@ -26,6 +26,10 @@ public class BoardRepositoryTests {
     @Autowired
     private BoardRepository boardRepository;
 
+    // 게시글 삭제시, 댓글 삭제 기능도 필요해서, 도움을 요청.
+    @Autowired
+    private ReplyRepository replyRepository;
+
     @Test
     public void testInsert() {
         // 더미 데이터 100개를 임의로 작성, 하드코딩. , 반목문을 이용해서, 추가 할 예정.
@@ -183,12 +187,24 @@ public class BoardRepositoryTests {
 
         // 새로운 첨부 파일들 추가
         for(int i = 0; i < 3 ; i++) {
-            board.addImage(UUID.randomUUID().toString(), "수정333_file_" + i + ".png");
+            board.addImage(UUID.randomUUID().toString(), "수정444_file_" + i + ".png");
         }
 
         // 테스트 실행을 하면, 고아 객체 형태로 남아 있는 거 먼저 확인. 후, 고아 객체 제거하는 설정하기.
         boardRepository.save(board);
 
+    }
+
+    @Transactional
+    @Commit
+    @Test
+    //import org.springframework.transaction.annotation.Transactional;
+    public void testRemoveAll() {
+        Long bno = 1L;
+        // 샘플 게시글 번호 : 1L
+        replyRepository.deleteByBoard_Bno(bno);
+        // 그리고 나서, 게시글 지우기.
+        boardRepository.deleteById(bno);
     }
 
 
