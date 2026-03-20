@@ -116,7 +116,7 @@ public class BoardServiceTests {
         // 변경시, 변경할 더미 데이터, 임시, 601L
 // 화면에서 넘어온 더미 데이터 만들기. DTO 타입.
         BoardDTO boardDTO = BoardDTO.builder()
-                .bno(2L)
+                .bno(202L)
                 .title("제목 : 수정버전")
                 .content("내용 : 수정버전")
                 .build();
@@ -136,9 +136,15 @@ public class BoardServiceTests {
                         UUID.randomUUID()+"_sampleImage2.png"
                 )
         );
-
         //디비에서 조회하기.
         boardService.modify(boardDTO);
+    }
+
+    // 삭제 테스트 1) 댓글이 있는 경우, 2) 댓글 없는 경우
+    @Test
+    public void testDeleteBoardReplyWithImage() {
+        Long bno = 202L;
+        boardService.remove(bno);
     }
 
 
