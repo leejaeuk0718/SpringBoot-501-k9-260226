@@ -74,7 +74,12 @@
                                     [[${dto.replyCount}]]
                                 </span>
 
-<!--                                첨부이미지 출력 해보기-->
+                                <!-- 첨부이미지 출력 해보기-->
+                                <div th:if="${dto.boardImages != null && dto.boardImages.size()>0}">
+                                    <img style="width: 100px" th:each="boardImage: ${dto.boardImages}"
+                                         th:src="|/view/s_${boardImage.uuid}_${boardImage.fileName}|">
+                                </div>
+                                <!--첨부이미지 출력 해보기-->
 
                             </td>
                             <td>[[${dto.writer}]]</td>
