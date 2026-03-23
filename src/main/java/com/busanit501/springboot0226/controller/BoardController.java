@@ -1,9 +1,6 @@
 package com.busanit501.springboot0226.controller;
 
-import com.busanit501.springboot0226.dto.BoardDTO;
-import com.busanit501.springboot0226.dto.BoardListReplyCountDTO;
-import com.busanit501.springboot0226.dto.PageRequestDTO;
-import com.busanit501.springboot0226.dto.PageResponseDTO;
+import com.busanit501.springboot0226.dto.*;
 import com.busanit501.springboot0226.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +26,10 @@ public class BoardController {
 //        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
 
         // 기존 목록에, 댓글 갯수 포함된 , 서비스 메서드로 교체 작업.
-        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+//        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+
+        // 기존 목록에, 댓글 갯수 + 첨부 이미지가 모두 포함된 메서드로 교체 작업.
+        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
         log.info("BoardController에서, responseDTO 확인 ," + responseDTO);
         model.addAttribute("responseDTO", responseDTO);
     }
