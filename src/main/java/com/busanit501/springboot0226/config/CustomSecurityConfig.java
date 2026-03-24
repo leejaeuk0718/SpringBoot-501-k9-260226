@@ -60,7 +60,10 @@ public class CustomSecurityConfig {
         );
 
         // 순서4,
-        http.authorizeRequests()
+        // 구버전 문법에서, 최신 문법으로 변경,
+//        http.authorizeRequests()
+        // 최신 Spring Security 6.x 람다 DSL 문법 적용
+        http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/js/**","/image/**").permitAll()
                 // 리스트는 기본으로 다 들어갈수 있게.
                 .requestMatchers("/", "/board/list", "/member/login","/images/**").permitAll()
@@ -71,7 +74,8 @@ public class CustomSecurityConfig {
                 //
                 .requestMatchers("/admin","/board/modify").hasRole("ADMIN")
                 // 위의 접근 제어 목록 외의 , 다른 어떤 요청이라도 반드시 인증이 되어야 접근이 된다.
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+        );
 
         // 순서5 , 자동로그인.
         http.rememberMe(
