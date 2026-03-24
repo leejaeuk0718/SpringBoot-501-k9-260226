@@ -53,7 +53,7 @@ public class CustomSecurityConfig {
         http.authorizeRequests()
                 .requestMatchers("/css/**", "/js/**","/image/**").permitAll()
                 // 리스트는 기본으로 다 들어갈수 있게.
-                .requestMatchers("/", "/board/list", "/login", "/joinUser","/joinForm","/findAll","/images/**").permitAll()
+                .requestMatchers("/", "/board/list", "/member/login","/images/**").permitAll()
                 // 로그인 후 확인 하기.
                 .requestMatchers("/board/register").hasRole("USER")
                 //
