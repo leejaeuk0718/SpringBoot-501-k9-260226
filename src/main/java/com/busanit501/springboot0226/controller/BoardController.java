@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,6 +49,8 @@ public class BoardController {
     }
 
     // 화면 제공
+    // 로그인 인증한 유저만, 글쓰기 화면에 접근이 가능
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/register")
     public  void registerGet() {
 
