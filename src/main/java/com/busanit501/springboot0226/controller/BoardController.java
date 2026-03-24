@@ -51,7 +51,7 @@ public class BoardController {
     // 화면 제공
     // 로그인 인증한 유저만, 글쓰기 화면에 접근이 가능
 //    @PreAuthorize("hasRole('USER')")
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     @GetMapping("/register")
     public  void registerGet() {
 
