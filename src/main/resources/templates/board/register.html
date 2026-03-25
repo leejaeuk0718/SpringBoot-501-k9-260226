@@ -26,7 +26,9 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text"> Writer:  </span>
-                            <input class="form-control" type="text" name="writer">
+                            <input class="form-control" type="text" name="writer"
+                            th:value="${#authentication.principal.username}" readonly
+                            >
                         </div>
 
 <!-- 첨부 이미지 작업 -->
@@ -97,9 +99,6 @@
     console.log("currentUser2 접속 유저명(Username 확인) : " , currentUser2)
 
     // 2번, 타임리프 라이브러리 활용한, 방법,
-    const auth = [[${authentication}]]
-    console.log("auth : " , auth)
-
     const auth2 = [[${#authentication.principal}]]
     console.log("auth2 : " , auth2)
 
