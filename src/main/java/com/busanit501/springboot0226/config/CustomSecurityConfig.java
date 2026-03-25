@@ -1,6 +1,7 @@
 package com.busanit501.springboot0226.config;
 
 import com.busanit501.springboot0226.security.CustomUserDetailsService;
+import com.busanit501.springboot0226.security.handler.Custom403Handler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -86,6 +88,12 @@ public class CustomSecurityConfig {
                         .tokenValiditySeconds(60*60*24*30) //30일
         );
 
+        //순서6, 403 에러 처리 등록하기.
+        http.exceptionHandling(
+                exception -> {
+                    exception.accessDeniedHandler(accessDeniedHandler());
+                });
+
         return http.build();
     }
 
@@ -116,4 +124,13 @@ public class CustomSecurityConfig {
         return repo;
     }
     // 자동 로그인 순서3,
+
+
+    // 403 핸들러 추가.
+    // 설정 클래스에 추가하기.
+    // 레스트용, Content-Type, application/json 형태 일 때만 동작을하고,
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new Custom403Handler();
+    }
 }

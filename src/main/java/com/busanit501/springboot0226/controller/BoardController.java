@@ -88,6 +88,8 @@ public class BoardController {
         model.addAttribute("dto",boardDTO);
     }
 
+    // 로그인 유저와, 게시글 작성자가 일치하는 경우에만, 수정처리 가능하게 설정.
+    @PreAuthorize("principal.username == #boardDTO.writer")
     @PostMapping("/modify")
     public String modify(@Valid BoardDTO boardDTO, BindingResult bindingResult,
                                PageRequestDTO pageRequestDTO,
