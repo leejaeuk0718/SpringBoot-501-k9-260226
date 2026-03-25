@@ -113,6 +113,8 @@ public class BoardController {
 
     }
 
+    // 로그인 유저와, 게시글 작성자가 일치하는 경우에만, 수정처리 가능하게 설정.
+    @PreAuthorize("principal.username == #boardDTO.writer")
     @PostMapping("/remove")
     // 삭제시, 화면에서 넘겨받은 , 삭제할 이미지 파일을 받을 준비 : BoardDTO 를 이용함.
 //    public String remove(Long bno,  RedirectAttributes redirectAttributes) {
