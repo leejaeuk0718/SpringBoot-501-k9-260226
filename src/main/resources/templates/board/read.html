@@ -2,6 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{layout/base}">
 
 <body>
@@ -52,11 +53,12 @@
                                name="modDate" readonly>
                     </div>
 
-                    <div th:with="link=${pageRequestDTO.getLink()}">
+                    <div th:with="link=${pageRequestDTO.getLink()}, user=${#authentication.principal}">
                         <a th:href="|@{/board/list}?${link}|" class="text-decoration-none">
                             <button class="btn btn-primary">목록가기</button>
                         </a>
-                        <a th:href="|@{/board/modify}?bno=${dto.bno}&${link}|" class="text-decoration-none">
+                        <a th:if="${user != null && user.username == dto.writer}"
+                                th:href="|@{/board/modify}?bno=${dto.bno}&${link}|" class="text-decoration-none">
                             <button class="btn btn-secondary">수정하기</button>
                         </a>
                     </div>
