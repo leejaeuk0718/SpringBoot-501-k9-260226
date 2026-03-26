@@ -66,7 +66,10 @@ public class CustomSecurityConfig {
 //        http.authorizeRequests()
         // 최신 Spring Security 6.x 람다 DSL 문법 적용
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**","/image/**").permitAll()
+                .requestMatchers("/css/**", "/js/**","/image/**",
+                        "http://localhost:8080/login/oauth2/code/kakao",
+                        "https://kauth.kakao.com",
+                        "https://kapi.kakao.com").permitAll()
                 // 리스트는 기본으로 다 들어갈수 있게.
                 .requestMatchers("/", "/board/list","/logout", "/member/login","/member/join","/images/**").permitAll()
                 // 로그인 후 확인 하기.
