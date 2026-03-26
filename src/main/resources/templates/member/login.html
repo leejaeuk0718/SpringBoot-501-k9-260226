@@ -35,7 +35,9 @@
                 </div>
 
                 <div class="my-4">
-                    <button type="button" class="btn btn-primary w-100 joinBtn">Join</button>
+                    <button type="button" class="btn btn-primary w-100 joinBtn">
+                        <a class="btn btn-primary w-100" th:href="@{/member/join}">Join</a>
+                    </button>
                 </div>
                 <div class="my-4">
                     <button type="submit" class="btn btn-primary w-100 submitBtn">LOGIN</button>
@@ -44,5 +46,8 @@
         </div>
     </div>
 </div>
+<script layout:fragment="script" th:inline="javascript">
+
+</script>
 </body>
 </html>
